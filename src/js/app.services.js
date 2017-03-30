@@ -7,7 +7,7 @@ app.service('Request', function($http, $rootScope) {
     	$rootScope.loader = true;
 
         if (type == 'POST') {
-            controller += ('/post/?id=' + object);
+            controller += ('/post');
         }
 
     	if (type == 'GETBYID') {
@@ -24,7 +24,17 @@ app.service('Request', function($http, $rootScope) {
     	if (type == 'DELETE') {
     		controller += ('/delete/?id=' + object);
     		type = 'POST';
-    	}       
+    	} 
+
+        if (type == 'GETBYMARCA') {
+            controller += ('/getVeiculosByMarca/?id=' + object);
+            type = 'GET';
+        }   
+
+        if (type == 'POSTDEVOLVERLOCACAO') {
+            controller += ('/postDevolverLocacao');
+            type = 'POST';
+        }    
 
 		return $http({
 		    method: type,

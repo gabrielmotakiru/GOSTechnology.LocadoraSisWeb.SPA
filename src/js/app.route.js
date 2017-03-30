@@ -88,6 +88,18 @@ app.config(function($routeProvider, $locationProvider)
       templateUrl : 'views/listarLocacao.html',
       controller : 'ListarLocacaoCtrl',
    })
+   .when('/cadastrarLocacao', {
+      templateUrl : 'views/cadastrarAlterarLocacao.html',
+      controller : 'CadastrarLocacaoCtrl',
+   })
+   .when('/alterarLocacao/:id', {
+      templateUrl : 'views/cadastrarAlterarLocacao.html',
+      controller : 'AlterarLocacaoCtrl',
+   })
+   .when('/detalharLocacao/:id', {
+      templateUrl : 'views/cadastrarAlterarLocacao.html',
+      controller : 'DetalharLocacaoCtrl',
+   })
  
    // Sobre.
    .when('/sobre', {

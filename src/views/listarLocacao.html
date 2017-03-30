@@ -2,8 +2,40 @@
 	<h1 class="titulo">{{titulo}}</h1>
 	<fieldset>
 		<legend>Informações Gerais</legend>
-		<p>
-			
-		</p>
+		<article class="text-right">
+			<a class="button" href="#/cadastrarLocacao">Cadastrar</a>
+		</article>
+		<hr></hr>
+		<table>
+			<thead>
+			  <tr>
+			    <th>Veículo</th>
+			    <th>Cliente</th>
+			    <th>Período Inicial</th>
+			    <th>Período Final</th>
+			    <th>Opções</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in lista">
+			    <td>{{item.Veiculo.Nome}}</td>
+			    <td>{{item.Cliente.Nome}}</td>
+			    <td>{{item.PeriodoInicial | date : "dd/MM/yyyy"}}</td>
+			    <td>{{item.PeriodoFinal | date : "dd/MM/yyyy"}}</td>
+			    <td>
+			    	<a class="button-info" href="#/detalharLocacao/{{item.Id}}">Detalhar</a>
+			    	<a class="button" href="#/alterarLocacao/{{item.Id}}">Devolver Veículo</a>
+			    	<a class="button-danger" ng-click="excluir(item.Id)">Excluir</a>
+			    </td>
+			  </tr>
+			  <tr ng-if="!lista || lista.length == 0">
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			  </tr>
+			</tbody>
+		</table>
 	</fieldset>
 </article>

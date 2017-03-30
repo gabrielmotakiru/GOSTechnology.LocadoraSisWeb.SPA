@@ -194,3 +194,7 @@ a:active, .button:active, .button-danger:active, .button-info:active {
 span {
 	color: red;
 }
+
+label {
+	padding: 1px;
+}

@@ -303,10 +303,135 @@ app.controller('AlterarOpcionalCtrl', function($rootScope, $scope, $location, $r
 // Locação
 /***************************************************************/
 /***************************************************************/
-app.controller('ListarLocacaoCtrl', function($rootScope, $scope, $location)
+/***************************************************************/
+/***************************************************************/
+// Marca
+/***************************************************************/
+/***************************************************************/
+app.controller('ListarLocacaoCtrl', function($rootScope, $scope, $location, Request)
 {
 	$rootScope.activetab = $location.path();
-	$scope.titulo = "Locações";
+	$scope.titulo = "Locação";
+
+	$scope.init = function() {
+		Request.call(null, 'GET', 'Locacoes').then(function(response) {
+			$scope.lista = response.data;
+		});
+	};
+
+	$scope.excluir = function(id) {
+		var confirmarExclusao = confirm("Deseja excluir esse item?");
+
+		if (confirmarExclusao) {
+			Request.call(id, 'DELETE', 'Locacoes').then(function(response) {
+				$scope.init();
+			});
+		}		
+	};
+
+	$scope.init();
+});
+app.controller('CadastrarLocacaoCtrl', function($rootScope, $scope, $location, Request)
+{
+	$rootScope.activetab = $location.path();
+	$scope.titulo = "Cadastrar Locação";
+	$scope.acao = "Cadastrar";
+	$scope.mensagem = "Preencha este campo no formato exemplificado.";
+	$scope.detalhar = false;
+	$scope.model = {};
+
+	Request.call(null, 'GET', 'Marcas').then(function(response) {
+		$scope.listaMarca = response.data;
+	});
+
+	Request.call(null, 'GET', 'Clientes').then(function(response) {
+		$scope.listaCliente = response.data;
+	});
+
+	$scope.selecionarMarca = function(id) {
+		if (id) {
+			Request.call(id, 'GETBYMARCA', 'Veiculos').then(function(response) {
+				if (response.data && response.data.length > 0) {
+					$scope.listaVeiculo = response.data;	
+				} else {
+					$scope.listaVeiculo = null;
+					$scope.model.VeiculoId = null;
+				}
+			});
+		} else {
+			$scope.listaVeiculo = null;
+			$scope.model.VeiculoId = null;
+		}
+	};
+
+	$scope.cadastrarAlterar = function () {
+		$scope.model.Alugado = true;
+		Request.call($scope.model, 'POST', 'Locacoes').then(function() {
+			$location.path('/listarLocacao');
+		});
+	};
+});
+app.controller('AlterarLocacaoCtrl', function($rootScope, $scope, $location, $routeParams, $filter, Request)
+{
+	$rootScope.activetab = $location.path();
+	$scope.titulo = "Devolver Veículo";
+	$scope.acao = "Devolver Veículo";
+	$scope.mensagem = "Preencha este campo no formato exemplificado.";
+	$scope.devolver = true;
+	$scope.detalhar = true;
+	$scope.model = {};
+
+	Request.call(null, 'GET', 'Marcas').then(function(response) {
+		$scope.listaMarca = response.data;
+	});
+
+	Request.call(null, 'GET', 'Veiculos').then(function(response) {
+		$scope.listaVeiculo = response.data;
+	});
+
+	Request.call(null, 'GET', 'Clientes').then(function(response) {
+		$scope.listaCliente = response.data;
+	});
+
+	Request.call($routeParams.id, 'GETBYID', 'Locacoes').then(function(response) {
+		$scope.model = response.data;
+		$scope.model.PeriodoInicial = $filter('date')($scope.model.PeriodoInicial, "dd/MM/yyyy");
+		$scope.model.PeriodoFinal = $filter('date')($scope.model.PeriodoFinal, "dd/MM/yyyy");
+		$scope.model.Valor = $filter('currency')($scope.model.Valor, 'R$ ').replace('.',',');
+	});
+
+	$scope.cadastrarAlterar = function () {
+		$scope.model.Valor = $scope.model.Valor.replace('R$ ', '').replace(',00','');
+		Request.call($scope.model, 'POSTDEVOLVERLOCACAO', 'Locacoes').then(function() {
+			$location.path('/listarLocacao');
+		});
+	}
+});
+app.controller('DetalharLocacaoCtrl', function($rootScope, $scope, $location, $routeParams, $filter, Request)
+{
+	$rootScope.activetab = $location.path();
+	$scope.titulo = "Detalhar Locação";
+	$scope.detalhar = true;
+	$scope.model = {};
+
+	Request.call(null, 'GET', 'Marcas').then(function(response) {
+		$scope.listaMarca = response.data;
+	});
+
+	Request.call(null, 'GET', 'Veiculos').then(function(response) {
+		$scope.listaVeiculo = response.data;
+	});
+
+	Request.call(null, 'GET', 'Clientes').then(function(response) {
+		$scope.listaCliente = response.data;
+	});
+
+	Request.call($routeParams.id, 'GETBYID', 'Locacoes').then(function(response) {
+		$scope.model = response.data;
+		$scope.model.PeriodoInicial = $filter('date')($scope.model.PeriodoInicial, "dd/MM/yyyy");
+		$scope.model.PeriodoFinal = $filter('date')($scope.model.PeriodoFinal, "dd/MM/yyyy");
+		$scope.model.Valor = $filter('currency')($scope.model.Valor, 'R$ ').replace('.',',');
+	});
 });
 
 /***************************************************************/
