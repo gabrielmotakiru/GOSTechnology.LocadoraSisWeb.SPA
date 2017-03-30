@@ -28,7 +28,7 @@ app.service('Request', function($http, $rootScope) {
 
 		return $http({
 		    method: type,
-		    url: 'http://localhost:2185/api/'+controller,
+		    url: urlBase+controller,
 		    data: object
 		}).then(function successCallback(response) {
 		    // Sucesso.

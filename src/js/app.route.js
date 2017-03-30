@@ -32,6 +32,10 @@ app.config(function($routeProvider, $locationProvider)
       templateUrl : 'views/cadastrarAlterarCliente.html',
       controller : 'AlterarClienteCtrl',
    })
+    .when('/detalharCliente/:id', {
+      templateUrl : 'views/cadastrarAlterarCliente.html',
+      controller : 'DetalharClienteCtrl',
+   })
 
    // Veiculos
    .when('/listarVeiculo', {
@@ -45,6 +49,10 @@ app.config(function($routeProvider, $locationProvider)
    .when('/alterarVeiculo/:id', {
       templateUrl : 'views/cadastrarAlterarVeiculo.html',
       controller : 'AlterarVeiculoCtrl',
+   })
+   .when('/detalharVeiculo/:id', {
+      templateUrl : 'views/cadastrarAlterarVeiculo.html',
+      controller : 'DetalharVeiculoCtrl',
    })
 
    // Marcas

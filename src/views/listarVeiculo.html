@@ -17,6 +17,7 @@
 			  <tr ng-repeat="item in lista">
 			    <td>{{item.Nome}}</td>
 			    <td>
+			    	<a class="button-info" href="#/detalharVeiculo/{{item.Id}}">Detalhar</a>
 			    	<a class="button" href="#/alterarVeiculo/{{item.Id}}">Alterar</a>
 			    	<a class="button-danger" ng-click="excluir(item.Id)">Excluir</a>
 			    </td>

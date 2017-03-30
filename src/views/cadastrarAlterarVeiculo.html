@@ -8,33 +8,33 @@
 			</p>
 			<p>
 				<label for="txtNome">Nome: </label>
-				<input type="text" autofocus required placeholder="Ex.: BMW M4" ng-model="model.Nome" maxlength="50"/>
+				<input type="text" autofocus required placeholder="Ex.: BMW M4" ng-model="model.Nome" ng-disabled="detalhar" maxlength="50"/>
 			</p>
 			<p>
 				<label for="txtNome">Modelo: </label>
-				<input type="number" autofocus required placeholder="Ex.: 2017" ng-model="model.Modelo" maxlength="4" class="medium" />
+				<input type="number" autofocus required placeholder="Ex.: 2017" ng-model="model.Modelo" ng-disabled="detalhar" maxlength="4" class="medium" />
 			</p>
 			<p>
 				<label for="txtNome">Cor: </label>
-				<input type="text" autofocus required placeholder="Ex.: Branco" ng-model="model.Cor" maxlength="20" class="medium" />
+				<input type="text" autofocus required placeholder="Ex.: Branco" ng-model="model.Cor" ng-disabled="detalhar" maxlength="20" class="medium" />
 			</p>
 			<p>
 				<label for="txtNome">Placa: </label>
-				<input type="number" autofocus required placeholder="Ex.: PPK-0800" ng-model="model.Placa" maxlength="10" class="medium" />
+				<input type="text" autofocus required placeholder="Ex.: PPK-0800" ng-model="model.Placa" ng-disabled="detalhar" maxlength="10" class="medium" />
 			</p>
 			<p>
 				<label for="txtNome">Preço (R$): </label>
-				<input type="number" autofocus required placeholder="Ex.: R$ 469.950,00" ng-model="model.Preco" maxlength="20" class="medium" />
+				<input type="number" autofocus required placeholder="Ex.: R$ 469.950,00" ng-model="model.Preco" ng-disabled="detalhar" maxlength="20" class="medium" />
 			</p>
 			<p>
 				<label for="txtNome">Marca: </label>
-				<select class="medium" required>
+				<select class="medium" required ng-model="model.MarcaId" ng-disabled="detalhar">
 					<option selected value="">Selecione</option>
-				    <option ng-repeat="marca in listaMarca" value="{{marca.Id}}">{{marca.Nome}}</option>
+				    <option ng-repeat="marca in listaMarca" value="{{marca.Id}}" ng-selected="marca.Id == model.Marca.Id">{{marca.Nome}}</option>
 				</select>
 			</p>
 			<hr></hr>
-			<button class="button">{{acao}}</button>
+			<button class="button" ng-if="!detalhar">{{acao}}</button>
 			<a class="button-info" href="#/listarVeiculo">Voltar</a>
 		</form>
 	</fieldset>
