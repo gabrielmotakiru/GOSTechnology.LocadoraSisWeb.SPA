@@ -1,0 +1,19 @@
+<article>
+	<h1 class="titulo">{{titulo}}</h1>
+	<fieldset>
+		<legend>Informações Gerais</legend>
+		<form ng-submit="cadastrarAlterar()">
+			<p>
+				<input type="hidden" ng-model="model.Id"/>
+			</p>
+			<p>
+				<label for="txtNome">Nome: </label>
+				<input type="text" autofocus required placeholder="Ex.: Ar-Condicionado" ng-model="model.Nome" maxlength="50"/>
+			</p>
+			<hr></hr>
+			<button class="button">{{acao}}</button>
+			<a class="button-info" href="#/listarOpcional">Voltar</a>
+		</form>
+	</fieldset>
+
+</article>

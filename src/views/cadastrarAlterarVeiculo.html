@@ -1,0 +1,42 @@
+<article>
+	<h1 class="titulo">{{titulo}}</h1>
+	<fieldset>
+		<legend>Informações Gerais</legend>
+		<form ng-submit="cadastrarAlterar()">
+			<p>
+				<input type="hidden" ng-model="model.Id"/>
+			</p>
+			<p>
+				<label for="txtNome">Nome: </label>
+				<input type="text" autofocus required placeholder="Ex.: BMW M4" ng-model="model.Nome" maxlength="50"/>
+			</p>
+			<p>
+				<label for="txtNome">Modelo: </label>
+				<input type="number" autofocus required placeholder="Ex.: 2017" ng-model="model.Modelo" maxlength="4" class="medium" />
+			</p>
+			<p>
+				<label for="txtNome">Cor: </label>
+				<input type="text" autofocus required placeholder="Ex.: Branco" ng-model="model.Cor" maxlength="20" class="medium" />
+			</p>
+			<p>
+				<label for="txtNome">Placa: </label>
+				<input type="number" autofocus required placeholder="Ex.: PPK-0800" ng-model="model.Placa" maxlength="10" class="medium" />
+			</p>
+			<p>
+				<label for="txtNome">Preço (R$): </label>
+				<input type="number" autofocus required placeholder="Ex.: R$ 469.950,00" ng-model="model.Preco" maxlength="20" class="medium" />
+			</p>
+			<p>
+				<label for="txtNome">Marca: </label>
+				<select class="medium" required>
+					<option selected value="">Selecione</option>
+				    <option ng-repeat="marca in listaMarca" value="{{marca.Id}}">{{marca.Nome}}</option>
+				</select>
+			</p>
+			<hr></hr>
+			<button class="button">{{acao}}</button>
+			<a class="button-info" href="#/listarVeiculo">Voltar</a>
+		</form>
+	</fieldset>
+
+</article>
