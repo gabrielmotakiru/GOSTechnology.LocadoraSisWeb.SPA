@@ -46,8 +46,9 @@ app.controller('ListarClienteCtrl', function($rootScope, $scope, $location, Requ
 app.controller('CadastrarClienteCtrl', function($rootScope, $scope, $location, Request)
 {
 	$rootScope.activetab = $location.path();
-	$scope.titulo = "Cadastrar Clientes";
+	$scope.titulo = "Cadastrar Cliente";
 	$scope.acao = "Cadastrar";
+	$scope.mensagem = "Preencha este campo no formato exemplificado.";
 	$scope.detalhar = false;
 	$scope.model = {};
 
@@ -57,17 +58,19 @@ app.controller('CadastrarClienteCtrl', function($rootScope, $scope, $location, R
 		});
 	}
 });
-app.controller('AlterarClienteCtrl', function($rootScope, $scope, $location, $routeParams, Request)
+app.controller('AlterarClienteCtrl', function($rootScope, $scope, $location, $routeParams, $filter, Request)
 {
 	$rootScope.activetab = $location.path();
-	$scope.titulo = "Alterar Clientes";
+	$scope.titulo = "Alterar Cliente";
 	$scope.acao = "Alterar";
+	$scope.mensagem = "Preencha este campo no formato exemplificado.";
 	$scope.detalhar = false;
 	$scope.model = {};
 
 	Request.call($routeParams.id, 'GETBYID', 'Clientes').then(function(response) {
 		$scope.model = response.data;
-	})
+		$scope.model.DataNascimento = $filter('date')($scope.model.DataNascimento, "dd/MM/yyyy");
+	});
 
 	$scope.cadastrarAlterar = function () {
 		var modelPut = { Id : $scope.model.Id, data : $scope.model };
@@ -76,16 +79,17 @@ app.controller('AlterarClienteCtrl', function($rootScope, $scope, $location, $ro
 		});
 	}
 });
-app.controller('DetalharClienteCtrl', function($rootScope, $scope, $location, $routeParams, Request)
+app.controller('DetalharClienteCtrl', function($rootScope, $scope, $location, $routeParams, $filter, Request)
 {
 	$rootScope.activetab = $location.path();
-	$scope.titulo = "Detalhar Clientes";
+	$scope.titulo = "Detalhar Cliente";
 	$scope.detalhar = true;
 	$scope.model = {};
 
 	Request.call($routeParams.id, 'GETBYID', 'Clientes').then(function(response) {
 		$scope.model = response.data;
-	})
+		$scope.model.DataNascimento = $filter('date')($scope.model.DataNascimento, "dd/MM/yyyy");
+	});
 });
 
 /***************************************************************/
@@ -151,6 +155,7 @@ app.controller('AlterarVeiculoCtrl', function($rootScope, $scope, $location, $ro
 	})
 
 	$scope.cadastrarAlterar = function () {
+		$scope.model.Marca = null;
 		var modelPut = { Id : $scope.model.Id, data : $scope.model };
 		Request.call(modelPut, 'PUT', 'Veiculos').then(function() {
 			$location.path('/listarVeiculo');
@@ -160,7 +165,7 @@ app.controller('AlterarVeiculoCtrl', function($rootScope, $scope, $location, $ro
 app.controller('DetalharVeiculoCtrl', function($rootScope, $scope, $location, $routeParams, Request)
 {
 	$rootScope.activetab = $location.path();
-	$scope.titulo = "Detalhar Veículos";
+	$scope.titulo = "Detalhar Veículo";
 	$scope.detalhar = true;
 	$scope.model = {};
 

@@ -10,12 +10,18 @@
 			<thead>
 			  <tr>
 			    <th>Descrição</th>
+			    <th>Modelo</th>
+			    <th>Marca</th>
+			    <th>Placa</th>
 			    <th>Opções</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr ng-repeat="item in lista">
 			    <td>{{item.Nome}}</td>
+			    <td>{{item.Modelo}}</td>
+			    <td>{{item.Marca.Nome}}</td>
+			    <td>{{item.Placa}}</td>
 			    <td>
 			    	<a class="button-info" href="#/detalharVeiculo/{{item.Id}}">Detalhar</a>
 			    	<a class="button" href="#/alterarVeiculo/{{item.Id}}">Alterar</a>
@@ -23,6 +29,9 @@
 			    </td>
 			  </tr>
 			  <tr ng-if="!lista || lista.length == 0">
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
 			    <td>Não existem dados</td>
 			    <td>Não existem dados</td>
 			  </tr>
