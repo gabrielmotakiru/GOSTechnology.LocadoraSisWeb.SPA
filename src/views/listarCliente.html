@@ -1,0 +1,38 @@
+<article>
+	<h1 class="titulo">{{titulo}}</h1>
+	<fieldset>
+		<legend>Informações Gerais</legend>
+		<article class="text-right">
+			<a class="button" href="#/cadastrarCliente">Cadastrar</a>
+		</article>
+		<hr></hr>
+		<table>
+			<thead>
+			  <tr>
+			    <th>Nome</th>
+			    <th>CPF</th>
+			    <th>Telefone</th>
+			    <th>Opções</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="item in lista">
+			    <td>{{item.Nome}}</td>
+			    <td>{{item.Cpf}}</td>
+			    <td>{{item.Telefone}}</td>
+			    <td>
+			    	<a class="button-info" href="#/detalharCliente/{{item.Id}}">Detalhar</a>
+			    	<a class="button" href="#/alterarCliente/{{item.Id}}">Alterar</a>
+			    	<a class="button-danger" ng-click="excluir(item.Id)">Excluir</a>
+			    </td>
+			  </tr>
+			  <tr ng-if="!lista || lista.length == 0">
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			    <td>Não existem dados</td>
+			  </tr>
+			</tbody>
+		</table>
+	</fieldset>
+</article>

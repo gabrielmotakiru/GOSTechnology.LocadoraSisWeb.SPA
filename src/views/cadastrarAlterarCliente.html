@@ -1,0 +1,35 @@
+<article>
+	<h1 class="titulo">{{titulo}}</h1>
+	<fieldset>
+		<legend>Informações Gerais</legend>
+		<form name="form" ng-submit="form.$valid && cadastrarAlterar()">
+			<p>
+				<input type="hidden" ng-model="model.Id"/>
+			</p>
+			<p>
+				<label for="txtNome">Nome: </label>
+				<input id="txtNome" type="text" autofocus required placeholder="Ex.: José Moreira Neto" ng-model="model.Nome" ng-disabled="detalhar" ng-maxlength="30" maxlength="80"/>
+			</p>
+			<p>
+				<label for="txtCpf">CPF: </label>
+				<input id="txtCpf" name="txtCpf" type="number" required placeholder="Ex.: 00000000000" ng-model="model.Cpf" ng-disabled="detalhar" ng-maxlength="11" class="medium" />
+				<span ng-if="form.txtCpf.$dirty && form.txtCpf.$invalid">{{mensagem}}.</span>
+			</p>
+			<p>
+				<label for="txtDataNascimento">Data de Nascimento: </label>
+				<input id="txtDataNascimento" name="txtDataNascimento" type="datetime" ng-pattern=" /^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/
+" required placeholder="Ex.: 01/01/1990" ng-model="model.DataNascimento" ng-disabled="detalhar" ng-maxlength="10" class="medium" />
+				<span ng-if="form.txtDataNascimento.$dirty && form.txtDataNascimento.$invalid">{{mensagem}}</span>
+			</p>
+			<p>
+				<label for="txtTelefone">Telefone: </label>
+				<input id="txtTelefone" name="txtTelefone" type="number" required placeholder="Ex.: 71999999999" ng-model="model.Telefone" ng-disabled="detalhar" ng-maxlength="11" class="medium" />
+				<span ng-if="form.txtTelefone.$dirty && form.txtTelefone.$invalid">{{mensagem}}</span>
+			</p>
+			<hr></hr>
+			<button class="button" ng-if="!detalhar">{{acao}}</button>
+			<a class="button-info" href="#/listarCliente">Voltar</a>
+		</form>
+	</fieldset>
+
+</article>

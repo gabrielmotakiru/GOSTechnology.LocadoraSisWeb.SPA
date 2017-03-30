@@ -1,0 +1,60 @@
+<script type="text/javascript">
+		function removerMascara() {
+			alert();
+			document.getElementById('txtValor').value = document.getElementById('txtValor').value.replace(',', '');
+		}
+	</script>
+<article>
+	<h1 class="titulo">{{titulo}}</h1>
+	<fieldset>
+		<legend>Informações Gerais</legend>
+		<form name="form" ng-submit="form.$valid && cadastrarAlterar()">
+			<p>
+				<input type="hidden" ng-model="model.Id"/>
+				<input type="hidden" ng-model="model.Veiculo.Id"/>
+			</p>
+			<p>
+				<label for="txtMarca">Marca: </label>
+				<select id="txtMarca" class="medium" required ng-model="model.MarcaId" ng-disabled="detalhar" ng-change="selecionarMarca(model.MarcaId)">
+					<option selected value="">Selecione</option>
+				    <option ng-repeat="marca in listaMarca" value="{{marca.Id}}" ng-selected="marca.Id == model.Veiculo.Marca.Id">{{marca.Nome}}</option>
+				</select>
+			</p>
+			<p>
+				<label for="txtVeiculo">Veículo: </label>
+				<select id="txtVeiculo" class="medium" required ng-model="model.VeiculoId" ng-disabled="detalhar">
+					<option selected value="">Selecione</option>
+				    <option ng-repeat="veiculo in listaVeiculo" value="{{veiculo.Id}}" ng-selected="veiculo.Id == model.Veiculo.Id">{{veiculo.Nome}}</option>
+				</select>
+			</p>
+			<p>
+				<label for="txtCliente">Cliente: </label>
+				<select id="txtCliente" class="medium" required ng-model="model.ClienteId" ng-disabled="detalhar">
+					<option selected value="">Selecione</option>
+				    <option ng-repeat="cliente in listaCliente" value="{{cliente.Id}}" ng-selected="cliente.Id == model.Cliente.Id">{{cliente.Nome}}</option>
+				</select>
+			</p>
+			<p>
+				<label for="txtPeriodoInicial">Período Inicial: </label>
+				<input id="txtPeriodoInicial" name="txtPeriodoInicial" type="datetime" ng-pattern=" /^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/
+" autofocus required placeholder="Ex.: 30/03/2017" ng-model="model.PeriodoInicial" ng-disabled="detalhar" ng-maxlength="10" class="medium" />
+				<span ng-if="form.txtPeriodoInicial.$dirty && form.txtPeriodoInicial.$invalid">{{mensagem}}</span>
+			</p>
+			<p>
+				<label for="txtPeriodoFinal">Período Final: </label>
+				<input id="txtPeriodoFinal" name="txtPeriodoFinal" type="datetime" ng-pattern=" /^((\d{4})-(\d{2})-(\d{2})|(\d{2})\/(\d{2})\/(\d{4}))$/
+" autofocus required placeholder="Ex.: 31/03/2017" ng-model="model.PeriodoFinal" ng-disabled="detalhar" ng-maxlength="10" class="medium" />
+				<span ng-if="form.txtPeriodoFinal.$dirty && form.txtPeriodoFinal.$invalid">{{mensagem}}</span>
+			</p>
+			<p>
+				<label for="txtValor">Valor Total (R$): </label>
+				<input id="txtValor" name="txtValor" type="text" autofocus required placeholder="Ex.: R$ 200,00" ng-model="model.Valor" ng-disabled="detalhar" ng-maxlength="12" class="medium" />
+				<span ng-if="form.txtValor.$dirty && form.txtValor.$invalid">{{mensagem}}</span>
+			</p>
+			<hr></hr>
+			<button class="button" ng-if="!detalhar">{{acao}}</button>
+			<button class="button" ng-if="devolver" ng-click="cadastrarAlterar()">{{acao}}</button>
+			<a class="button-info" href="#/listarLocacao">Voltar</a>
+		</form>
+	</fieldset>
+</article>
